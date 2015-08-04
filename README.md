@@ -11,8 +11,8 @@
 3. Cross -validation on training set: 98% correctly classified (RandomForest, 10 folders)
 4. Performance on android phone: ANR android not responding....  GC_FOR_ALLOC 
  
-What's next?
+## What's next?
 
-[default] fix ANR problem
-[work around] Move the prediction process to cloud
-[backup plan] choose another pattern, like the meeting pattern
+###[default] fix ANR problem
+###[work around] Move the prediction process to cloud
+###[backup plan] choose another pattern, like the meeting pattern
