@@ -12,6 +12,7 @@
 4. Performance on android phone: ANR android not responding....  GC_FOR_ALLOC 
  
 What's next?
+
 [default] fix ANR problem
-[work around] change for a better device
+[work around] Move the prediction process to cloud
 [backup plan] choose another pattern, like the meeting pattern
