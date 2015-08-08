@@ -47,6 +47,11 @@ public class DoubleFeatureUnit {
         this.dataArray = null;
     }
 
+
+    public int getlength() {
+        return this.data.size();
+    }
+
     public DoubleFeatureUnit(List<Double> data) {
         this.data = data;
     }

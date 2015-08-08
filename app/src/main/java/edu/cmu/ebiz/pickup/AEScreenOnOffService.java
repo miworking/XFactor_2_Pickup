@@ -8,6 +8,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
@@ -64,6 +65,7 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d(TAG, "onCreate");
 
         // Toast.makeText(getBaseContext(), "Service on create", Toast.LENGTH_SHORT).show();
 
@@ -87,56 +89,66 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        switch (event.sensor.getType()) {
-            case Sensor.TYPE_ACCELEROMETER: {
-//                recordSensorData(event, acc_output);
-                if (pickupOnce != null) {
-                    recordSensorData(event, pickupOnce.getAccelerometer());
-                }
+        if (screenOff == true) {
+            Log.d(TAG,"onSensorChanged");
+            switch (event.sensor.getType()) {
+                case Sensor.TYPE_ACCELEROMETER: {
+                    if (pickupOnce != null) {
+//                        recordSensorData(event, pickupOnce.getAccelerometer());
+                        recordSensorData(event, acc_output);
+                        new RecordSensorDataTask().execute(getEventStr(event), "ACC");
+                    }
 
-                break;
-            }
-            case Sensor.TYPE_GYROSCOPE: {
-//                recordSensorData(event, gyro_output);
-                break;
-            }
-            case Sensor.TYPE_MAGNETIC_FIELD: {
-//                recordSensorData(event, magnetic_output);
-                if (pickupOnce != null) {
-                    recordSensorData(event, pickupOnce.getMagnetic());
+                    break;
                 }
-                break;
-            }
-            case Sensor.TYPE_GRAVITY: {
+                case Sensor.TYPE_GYROSCOPE: {
+//                    recordSensorData(event, gyro_output);
+                    break;
+                }
+                case Sensor.TYPE_MAGNETIC_FIELD: {
+                    if (pickupOnce != null) {
+//                        recordSensorData(event, pickupOnce.getMagnetic());
+//                        recordSensorData(event, magnetic_output);
+                        new RecordSensorDataTask().execute(getEventStr(event), "MAG");
+                    }
+                    break;
+                }
+                case Sensor.TYPE_GRAVITY: {
 //                recordSensorData(event, gravity_output);
-                break;
-            }
-            case Sensor.TYPE_ORIENTATION: {
+                    break;
+                }
+                case Sensor.TYPE_ORIENTATION: {
 //                recordSensorData(event, orientation_output);
 
-                break;
-            }
-            case Sensor.TYPE_ROTATION_VECTOR: {
+                    break;
+                }
+                case Sensor.TYPE_ROTATION_VECTOR: {
 //                recordSensorData(event, pickupOnce.getRotation());
 //                if (pickupOnce != null) {
 //                    recordSensorData(event, pickupOnce.getRotation());
 //                }
-                break;
+                    break;
+                }
             }
-
         }
+
     }
+
 
     private void recordSensorData(SensorEvent event, XYZFeature feature) {
         if (screenOff && feature != null) {
+            Log.d(TAG, "recordSensorData1, screenOFF is " + screenOff);
             float[] values = event.values;
             for (int i = 0; i < values.length; i++) {
+                Log.d(TAG, "feature.addSample " + feature.getY().getlength());
                 feature.addSample((double) values[0], (double) values[1], (double) (values[2]));
             }
         }
     }
 
+
     private void recordSensorData(SensorEvent event, FileOutputStream output) {
+        Log.d(TAG, "recordSensorData2");
         if (screenOff) {
             if (output != null) {
                 try {
@@ -157,6 +169,65 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
         }
     }
 
+    private String getEventStr(SensorEvent event) {
+        if (screenOff) {
+            try {
+                float[] values = event.values;
+                StringBuilder curline = new StringBuilder();
+                String separator = "";
+                for (int i = 0; i < values.length; i++) {
+                    curline.append(separator);
+                    curline.append(values[i]);
+                    separator = ",";
+                }
+                return curline.toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        return null;
+    }
+
+
+    class RecordSensorDataTask extends AsyncTask<String, String, Boolean> {
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+        }
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            String eventStr = params[0];
+            String type = params[1];
+
+            Log.d(TAG, "RecordSensorDataTask:" + "type = " + type + "  " + eventStr);
+            try {
+                if (screenOff) {
+                    if (eventStr != null) {
+                        switch (type) {
+                            case "ACC": {
+                                acc_output.write(eventStr.getBytes());
+                                break;
+                            }
+                            case "MAG": {
+                                magnetic_output.write(eventStr.getBytes());
+                                break;
+                            }
+                            default: {
+
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+    }
+
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
@@ -165,21 +236,22 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
     @Override
     public void onStart(Intent intent, int startId) {
 
+        Log.d(TAG, "onStart");
         screenOff = false;
-
         try {
             screenOff = intent.getBooleanExtra("screen_state", false);
-
+            Log.d(TAG, "getBooleanExtra: screen_state: screenOff = " + screenOff);
         } catch (Exception e) {
         }
 
         if (!screenOff) {
             Log.d(TAG, "ON");
-//            Toast.makeText(getBaseContext(), "Screen on, ", Toast.LENGTH_SHORT).show();
-//            closeOutputFile();
+            closeOutputFile();
             if (pickupOnce != null) {
                 Log.d(TAG, "Going to recognize");
                 boolean isOwner = patternRecognition();
+                Log.d(TAG, "Finished recognizing");
+
                 if (isOwner) {
                     Toast.makeText(getBaseContext(), "Owner ", Toast.LENGTH_SHORT).show();
                 } else {
@@ -190,8 +262,8 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
 
         } else {
             Log.d(TAG, "OFF");
-//            clearFolder();
-//            setOutputFile();
+            clearFolder();
+            setOutputFile();
 
             if (pickupOnce == null) {
                 pickupOnce = new Feature();
@@ -238,8 +310,7 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
             ois.close();
             if (prediction == 0) {
                 return false;
-            }
-            else {
+            } else {
                 return true;
             }
 
@@ -270,11 +341,11 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
             classVal.add("1");
 
             attributeList.add(new Attribute("@@Class@@", classVal));
-            Instances data = new Instances("TestInstances",attributeList,0);
+            Instances data = new Instances("TestInstances", attributeList, 0);
             return data;
-        }
-        catch (Exception e) {
-            e.printStackTrace();;
+        } catch (Exception e) {
+            e.printStackTrace();
+            ;
             return null;
         }
     }
@@ -299,10 +370,10 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
             acc_output = new FileOutputStream(acc_outputFile);
             acc_output.write("x,y,z\n".getBytes());
 
-            String gyro_filename = df.format(now) + "_gyro.csv";
-            gyro_outputFile = new File(baseFolder + "/" + gyro_filename);
-            gyro_output = new FileOutputStream(gyro_outputFile);
-            gyro_output.write("x,y,z\n".getBytes());
+//            String gyro_filename = df.format(now) + "_gyro.csv";
+//            gyro_outputFile = new File(baseFolder + "/" + gyro_filename);
+//            gyro_output = new FileOutputStream(gyro_outputFile);
+//            gyro_output.write("x,y,z\n".getBytes());
 
 
             String magnetic_filename = df.format(now) + "_magnetic.csv";
@@ -311,15 +382,15 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
             magnetic_output.write("x,y,z\n".getBytes());
 
 
-            String gravity_filename = df.format(now) + "_gravity.csv";
-            gravity_outputFile = new File(baseFolder + "/" + gravity_filename);
-            gravity_output = new FileOutputStream(gravity_outputFile);
-            gravity_output.write("x,y,z\n".getBytes());
+//            String gravity_filename = df.format(now) + "_gravity.csv";
+//            gravity_outputFile = new File(baseFolder + "/" + gravity_filename);
+//            gravity_output = new FileOutputStream(gravity_outputFile);
+//            gravity_output.write("x,y,z\n".getBytes());
 
-            String orientation_filename = df.format(now) + "_orientation.csv";
-            orientation_outputFile = new File(baseFolder + "/" + orientation_filename);
-            orientation_output = new FileOutputStream(orientation_outputFile);
-            orientation_output.write("x,y,z\n".getBytes());
+//            String orientation_filename = df.format(now) + "_orientation.csv";
+//            orientation_outputFile = new File(baseFolder + "/" + orientation_filename);
+//            orientation_output = new FileOutputStream(orientation_outputFile);
+//            orientation_output.write("x,y,z\n".getBytes());
 
 //            String rotation_filename = df.format(now) + "_rotation.csv";
 //            rotation_outputFile = new File(baseFolder + "/" + rotation_filename);
