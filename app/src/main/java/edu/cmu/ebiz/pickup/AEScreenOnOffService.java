@@ -155,12 +155,12 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
                     float[] values = event.values;
                     StringBuilder curline = new StringBuilder();
                     String separator = "";
+                    curline.append("\n");
                     for (int i = 0; i < values.length; i++) {
                         curline.append(separator);
                         curline.append(values[i]);
                         separator = ",";
                     }
-                    curline.append("\n");
                     output.write(curline.toString().getBytes());
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -174,12 +174,14 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
             try {
                 float[] values = event.values;
                 StringBuilder curline = new StringBuilder();
+                curline.append("\n");
                 String separator = "";
                 for (int i = 0; i < values.length; i++) {
                     curline.append(separator);
                     curline.append(values[i]);
                     separator = ",";
                 }
+//                curline.append("\n");
                 return curline.toString();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -368,7 +370,7 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
             String acc_filename = df.format(now) + "_acc.csv";
             acc_outputFile = new File(baseFolder + "/" + acc_filename);
             acc_output = new FileOutputStream(acc_outputFile);
-            acc_output.write("x,y,z\n".getBytes());
+            acc_output.write("x,y,z".getBytes());
 
 //            String gyro_filename = df.format(now) + "_gyro.csv";
 //            gyro_outputFile = new File(baseFolder + "/" + gyro_filename);
