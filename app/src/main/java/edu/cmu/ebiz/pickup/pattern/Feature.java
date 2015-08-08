@@ -43,7 +43,7 @@ public class Feature {
 
     public boolean getFeatureFromCSV(String dir, String timestamp) {
         this.timestamp = timestamp;
-        String accFileName = dir + timestamp + "acc.csv";
+        String accFileName = dir + "/" + timestamp + "acc.csv";
         accelerometer = new XYZFeature();
         Log.d(TAG, "Going to read:" + accFileName);
         if (!accelerometer.readFromCSV(accFileName)) {
@@ -51,8 +51,7 @@ public class Feature {
             return false;
         }
 
-
-        String magneticFileName = dir + timestamp + "magnetic.csv";
+        String magneticFileName = dir + "/" + timestamp + "magnetic.csv";
         Log.d(TAG, "Going to read:" + magneticFileName);
         magnetic = new XYZFeature();
         if (!magnetic.readFromCSV(magneticFileName)) {
@@ -103,6 +102,7 @@ public class Feature {
 
     public boolean setInstance(Instance ins) {
         setPrefix();
+        Log.d(TAG,"in setInstance");
         if (this.accelerometer.setInstance(ins)
                 && this.magnetic.setInstance(ins)) {
 //            Attribute label =  new Attribute("label");

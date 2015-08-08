@@ -56,9 +56,6 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
     private FileOutputStream orientation_output;
     private File orientation_outputFile;
 
-//    private FileOutputStream rotation_output;
-//    private File rotation_outputFile;
-
     private Feature pickupOnce = null;
 
 
@@ -90,7 +87,7 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (screenOff == true) {
-            Log.d(TAG,"onSensorChanged");
+            Log.d(TAG, "onSensorChanged");
             switch (event.sensor.getType()) {
                 case Sensor.TYPE_ACCELEROMETER: {
                     if (pickupOnce != null) {
@@ -170,7 +167,7 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
     }
 
     private String getEventStr(SensorEvent event) {
-        if (screenOff) {
+        if (screenOff) { // OFF
             try {
                 float[] values = event.values;
                 StringBuilder curline = new StringBuilder();
@@ -295,17 +292,29 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
         onepersondata.write2File(instancePath, true); //append
 */
         try {
-
+            // load model
+            Log.d(TAG, "Loading model:");
             InputStream is = this.getAssets().open("model.model");
             ObjectInputStream ois = new ObjectInputStream(is);
             RandomForest rf = (RandomForest) (ois.readObject());
-            Log.d(TAG, "LOading model:");
+
+
+            // load feature
+            Log.d(TAG, "Loading feature");
             Instance ins = (Instance) new DenseInstance(105);
             Instances dataset = getInstanceDataSet();
             dataset.add(ins);
             dataset.setClassIndex(ins.numAttributes() - 1);
             ins.setDataset(dataset);
+            pickupOnce.getFeatureFromCSV(getBaseFolder(), getTimeStamp());
+            Log.d(TAG, "Finished getting acc feature:" + pickupOnce.getAccelerometer().getY().getlength());
+            Log.d(TAG, "Finished getting magnetic feature:" + pickupOnce.getMagnetic().getY().getlength());
             pickupOnce.setInstance(ins);
+
+            for (int i = 0; i < ins.numAttributes();i++) {
+                Log.d(TAG,i + ":" + ins.attribute(i).toString());
+            }
+
             Log.d(TAG, "Instance" + ins.toString());
             double prediction = rf.classifyInstance(ins);
             Log.d(TAG, "Classficiation result: " + prediction);
@@ -381,7 +390,7 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
             String magnetic_filename = df.format(now) + "_magnetic.csv";
             magnetic_outputFile = new File(baseFolder + "/" + magnetic_filename);
             magnetic_output = new FileOutputStream(magnetic_outputFile);
-            magnetic_output.write("x,y,z\n".getBytes());
+            magnetic_output.write("x,y,z".getBytes());
 
 
 //            String gravity_filename = df.format(now) + "_gravity.csv";
@@ -424,13 +433,6 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
             if (orientation_output != null) {
                 orientation_output.close();
             }
-
-
-//            if (rotation_output != null) {
-//                rotation_output.close();
-//            }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -455,6 +457,32 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
 
     }
 
+
+    private String getBaseFolder() {
+        String baseFolder;
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            baseFolder = this.getExternalFilesDir(null).getAbsolutePath();
+        } else {
+            baseFolder = this.getFilesDir().getAbsolutePath();
+        }
+        return baseFolder;
+    }
+
+    private String getTimeStamp() {
+        File fileAll = new File(getBaseFolder());
+        File[] files = fileAll.listFiles();
+        String filename = files[0].getName();
+        Log.d(TAG, "File name = " + files[0].getName());
+        String[] prefixs = filename.split("_");
+        StringBuilder prefix = new StringBuilder();
+        for (int i = 0; i < prefixs.length - 1; i++) {
+            prefix.append(prefixs[i]);
+            prefix.append("_");
+        }
+        Log.d(TAG, "Prefix = " + prefix.toString());
+        return prefix.toString();
+    }
+
     private void clearFolder() {
         String baseFolder;
         // check if external storage is available
@@ -465,6 +493,7 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
         else {
             baseFolder = this.getFilesDir().getAbsolutePath();
         }
+        Log.d(TAG, "Base folder = " + baseFolder);
         File fileAll = new File(baseFolder);
         File[] files = fileAll.listFiles();
         for (int i = 0; i < files.length; i++) {
