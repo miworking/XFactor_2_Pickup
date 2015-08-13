@@ -16,7 +16,6 @@ public class ScreenOnOff extends Activity {
         Intent i0 = new Intent();
         i0.setAction("edu.cmu.ebiz.pickup.AEScreenOnOffService");
         startService(i0);
-
     }
 
 }

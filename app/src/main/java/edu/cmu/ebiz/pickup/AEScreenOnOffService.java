@@ -11,6 +11,7 @@ import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.IBinder;
+import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -58,11 +59,16 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
 
     private Feature pickupOnce = null;
 
+    private Vibrator vibrator;
+
 
     @Override
     public void onCreate() {
         super.onCreate();
+
         Log.d(TAG, "onCreate");
+
+        vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
         // Toast.makeText(getBaseContext(), "Service on create", Toast.LENGTH_SHORT).show();
 
@@ -253,8 +259,10 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
 
                 if (isOwner) {
                     Toast.makeText(getBaseContext(), "Owner ", Toast.LENGTH_SHORT).show();
+
                 } else {
                     Toast.makeText(getBaseContext(), "Other ", Toast.LENGTH_SHORT).show();
+                    vibrator.vibrate(500);
                 }
             }
 
