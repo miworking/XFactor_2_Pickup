@@ -61,6 +61,8 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
 
     private Vibrator vibrator;
 
+    private final String pickupAction = "org.twinone.locker.pickup.result";
+
 
     @Override
     public void onCreate() {
@@ -68,7 +70,7 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
 
         Log.d(TAG, "onCreate");
 
-        vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         // Toast.makeText(getBaseContext(), "Service on create", Toast.LENGTH_SHORT).show();
 
@@ -257,12 +259,28 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
                 boolean isOwner = patternRecognition();
                 Log.d(TAG, "Finished recognizing");
 
+                /*
                 if (isOwner) {
                     Toast.makeText(getBaseContext(), "Owner ", Toast.LENGTH_SHORT).show();
 
                 } else {
                     Toast.makeText(getBaseContext(), "Other ", Toast.LENGTH_SHORT).show();
                     vibrator.vibrate(500);
+                }
+                */
+                if (isOwner) {
+//                    Toast.makeText(getBaseContext(), "Owner ", Toast.LENGTH_SHORT).show();
+
+                    Intent pickupresult_intent = new Intent(pickupAction);
+                    pickupresult_intent.putExtra("pickup", "owner");
+                    sendBroadcast(pickupresult_intent);
+
+                } else {
+//                    Toast.makeText(getBaseContext(), "Other ", Toast.LENGTH_SHORT).show();
+                    Intent pickupresult_intent = new Intent(pickupAction);
+                    pickupresult_intent.putExtra("pickup", "other");
+                    sendBroadcast(pickupresult_intent);
+                    vibrator.vibrate(2000);
                 }
             }
 
@@ -319,8 +337,8 @@ public class AEScreenOnOffService extends Service implements SensorEventListener
             Log.d(TAG, "Finished getting magnetic feature:" + pickupOnce.getMagnetic().getY().getlength());
             pickupOnce.setInstance(ins);
 
-            for (int i = 0; i < ins.numAttributes();i++) {
-                Log.d(TAG,i + ":" + ins.attribute(i).toString());
+            for (int i = 0; i < ins.numAttributes(); i++) {
+                Log.d(TAG, i + ":" + ins.attribute(i).toString());
             }
 
             Log.d(TAG, "Instance" + ins.toString());
