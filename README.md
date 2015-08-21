@@ -1,5 +1,15 @@
 # XFactor_PickupRecognition
 
+This will work in the background as a service, monitoring the user's gesture to decide whethere the app is opened by the owner of the app or not.
+
+# How to use it
+An empty app will show up when this app is opened. Then you can close it and the service will work in the background.
+
+
+
+
+
+
 ##[Analysis of the result](https://www.dropbox.com/s/bnvwc62nh7kt24q/Pickup.pptx?dl=0)
 
 
