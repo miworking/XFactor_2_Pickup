@@ -1,6 +1,6 @@
 # Pickup Pattern Recognition
 
-# What will be done
+## What will be done
 Once the app is opened, it will go to the background immediately, so there is no UI for this app.
 Then it will work in the background as a service, monitoring the user's gesture to decide whether the phone is opened by the owner or not. It can only be killed manually in the settings of the system.
 
@@ -17,15 +17,3 @@ Then it will work in the background as a service, monitoring the user's gesture 
 3. Cross -validation on training set: 98% correctly classified (RandomForest, 10 folders)
 4. Performance on android phone: ANR android not responding....  GC_FOR_ALLOC 
  
-<<<<<<< HEAD
-## What's next?
-
-###[default] fix ANR problem
-###[work around] Move the prediction process to cloud
-###[backup plan] choose another pattern, like the meeting pattern
-=======
-What's next?
-[default] fix ANR problem
-[work around] change for a better device
-[backup plan] choose another pattern, like the meeting pattern
->>>>>>> 7d2cb2b732e2c7c07c3a442d20bd80eca5a5bd66
