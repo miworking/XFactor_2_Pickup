@@ -1,12 +1,8 @@
-# XFactor_PickupRecognition
+# Pickup Pattern Recognition
 
-This will work in the background as a service, monitoring the user's gesture to decide whethere the app is opened by the owner of the app or not.
-
-# How to use it
-An empty app will show up when this app is opened. Then you can close it and the service will work in the background.
-
-
-
+# What will be done
+Once the app is opened, it will go to the background immediately, so there is no UI for this app.
+Then it will work in the background as a service, monitoring the user's gesture to decide whether the phone is opened by the owner or not. It can only be killed manually in the settings of the system.
 
 
 
