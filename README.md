@@ -42,14 +42,13 @@ All data related classes will be placed in [***pattern***](https://github.com/mi
 
 - [Feature](https://github.com/miworking/XFactor_PickupRecognition/blob/master/app/src/main/java/edu/cmu/ebiz/pickup/pattern/Feature.java) class contains 2 XYZFeature members: accelerometer and magnetic
 
-- [OnePersonData](https://github.com/miworking/XFactor_PickupRecognition/blob/master/app/src/main/java/edu/cmu/ebiz/pickup/pattern/OnePersonData.java) has a list of Feature as its member, and calculate features from it;
+- [OnePersonData](https://github.com/miworking/XFactor_PickupRecognition/blob/master/app/src/main/java/edu/cmu/ebiz/pickup/pattern/OnePersonData.java) has a list of Feature as its member, and calculate features from it
 
 
 #### What's the result?
 Once the result is decided from this ***Random Forest*** model, it will be stored in *isOwner* as a boolean variable, and this result will be [sent out as a broadcast to  "org.twinone.locker.pickup.result" Action] (https://github.com/miworking/XFactor_PickupRecognition/blob/master/app/src/main/java/edu/cmu/ebiz/pickup/AEScreenOnOffService.java#L271-L286)
 
-
-
+and the XFactor app will register a receiver for this broadcast, and calculate a pickup_score basing on this result.
 
 
 
