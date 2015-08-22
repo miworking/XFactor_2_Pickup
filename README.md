@@ -12,6 +12,10 @@ Then it will work in the background as a service, monitoring the user's gesture 
  ![Settings](https://lh4.googleusercontent.com/DGbT7aMeklh3Kn6Aj3HtO56_wCn2o7ovyYU7ZGLsUVUcNKTYjPEjhULFSYfioYmJnUsOkKmpbpMUh7U=w1000-h398-rw)
 ![Pickup](https://lh3.googleusercontent.com/FUaJlwOMH3q72a0aJRSn2tNsLKyhA8YvXzwsq14-ubm2TZAZO-NsmGeKkyzDb-ERfW-BFxJg8Evix-M=w1000-h398-rw)
 ![Kill](https://lh5.googleusercontent.com/USqPWuuFbBb-VnK4VJbg47UR4HUTKxirfc79NFk7-p0W-2bF7kmpggjR2JlyRB1bSOxTn78CIg9QDvQ=w1000-h398-rw)
+
+## What data is used:
+
+
 ## Code explanation:
 
 
