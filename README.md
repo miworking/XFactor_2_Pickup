@@ -1,10 +1,10 @@
 # Pickup Pattern Recognition
 
-## How it works:
+## How it works
 Once the app is opened, it will go to the background immediately, so there is no UI for this app.
 Then it will work in the background as a service, monitoring the user's gesture to decide whether the phone is opened by the owner or not. It can only be killed manually in the settings of the system.
 
-
+## 
 
 ##[Analysis of the result](https://www.dropbox.com/s/bnvwc62nh7kt24q/Pickup.pptx?dl=0)
 
