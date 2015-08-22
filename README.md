@@ -3,8 +3,14 @@
 
 ## How it works
 Once the app is opened, it will go to the background immediately, so there is no UI for this app.
-Then it will work in the background as a service, monitoring the user's gesture to decide whether the phone is opened by the owner or not. It can only be killed manually in the settings of the system.
+Then it will work in the background as a service, monitoring the user's gesture to decide whether the phone is opened by the owner or not.
 
+
+## How to kill it:
+ Since this app has no UI, and only works as a background service, it can only be killed manually in the settings of the system.
+![Settings](https://lh4.googleusercontent.com/DGbT7aMeklh3Kn6Aj3HtO56_wCn2o7ovyYU7ZGLsUVUcNKTYjPEjhULFSYfioYmJnUsOkKmpbpMUh7U=w1000-h398-rw)
+![Pickup](https://lh3.googleusercontent.com/FUaJlwOMH3q72a0aJRSn2tNsLKyhA8YvXzwsq14-ubm2TZAZO-NsmGeKkyzDb-ERfW-BFxJg8Evix-M=w1000-h398-rw)
+![Kill](https://lh5.googleusercontent.com/USqPWuuFbBb-VnK4VJbg47UR4HUTKxirfc79NFk7-p0W-2bF7kmpggjR2JlyRB1bSOxTn78CIg9QDvQ=w1000-h398-rw)
 ## Code explanation:
 
 
