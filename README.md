@@ -1,9 +1,9 @@
-# 1. App Name: Pickup 
+# App Name: Pickup 
 ![Pickup](https://raw.githubusercontent.com/miworking/XFactor_PickupRecognition/master/app/src/main/res/mipmap-xhdpi/ic_launcher.png)
 
 ## What does it do:
 Once the app is opened, it will go to the background immediately, so there is no UI for this app.
-Then it will work in the background as a service, monitoring the user's gesture to decide whether the phone is opened by the owner or not.
+However it will work in the background as a service, monitoring the user's gesture to decide whether the phone is opened by the owner or not.
 
 
 ## How to kill it:
@@ -49,7 +49,6 @@ All data related classes will be placed in [***pattern***](https://github.com/mi
 Once the result is decided from this ***Random Forest*** model, it will be stored in *isOwner* as a boolean variable, and this result will be [sent out as a broadcast to  "org.twinone.locker.pickup.result" Action] (https://github.com/miworking/XFactor_PickupRecognition/blob/master/app/src/main/java/edu/cmu/ebiz/pickup/AEScreenOnOffService.java#L271-L286)
 
 and the XFactor app will register a receiver for this broadcast, and calculate a pickup_score basing on this result.
-
 
 
 
