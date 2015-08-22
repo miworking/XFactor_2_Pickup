@@ -54,11 +54,5 @@ and the XFactor app will register a receiver for this broadcast, and calculate a
 
 
 
-##Summary:
- 
-1. 104 features
-{Accelerometer, Magnetic} * {X,Y,Z,Magnitude} * {Mean, Std, Min, Max, Percentile25,50,75, FTT[0,1,2]}
-2. data of 6 people, 547 instances
-3. Cross -validation on training set: 98% correctly classified (RandomForest, 10 folders)
-4. Performance on android phone: ANR android not responding....  GC_FOR_ALLOC 
+
  
