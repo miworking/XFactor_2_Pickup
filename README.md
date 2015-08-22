@@ -20,7 +20,7 @@ When the screen is turned off, all sensor data will be collected by this service
 Once the screen is turned on, it will read these data from local files, and abstract features from them, and decide whether it is the owner that picked up this phone. 
 
 #### Data format and related features
-Only *accelerometer* and *magnetic* sensor data will be used, so there will be two files in this folder: 2015_08_21_23_47_55_acc.csv and 2015_08_21_23_47_55_magetic.csv  ([Why don't use other sensor data?] 
+Only ***accelerometer*** and ***magnetic*** sensor data will be used, so there will be two files in this folder: 2015_08_21_23_47_55_acc.csv and 2015_08_21_23_47_55_magetic.csv  ([Why don't use other sensor data?] 
 (https://www.dropbox.com/s/bnvwc62nh7kt24q/Pickup.pptx?dl=0) [Page 2])
 
 [104 features](https://www.dropbox.com/s/bnvwc62nh7kt24q/Pickup.pptx?dl=0)will be abstracted
