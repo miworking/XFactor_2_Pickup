@@ -51,6 +51,14 @@ Once the result is decided from this ***Random Forest*** model, it will be store
 and the XFactor app will register a receiver for this broadcast, and calculate a pickup_score basing on this result.
 
 
+## Collect data 
+This app can also be used to collect data for later modeling.
+The only difference is to comment the following [line](https://github.com/miworking/XFactor_2_Pickup/blob/master/app/src/main/java/edu/cmu/ebiz/pickup/AEScreenOnOffService.java#L85
+)
+so that data will not be cleared everyone when use turns off the screen.
+Once data is collected, you can use [TrainModel](https://github.com/miworking/XFactor_3_TrainModel) to preprocess them and generate features in a arff file, so as to be used in Weka. 
+
+
 
 
 
