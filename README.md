@@ -34,6 +34,7 @@ Only ***accelerometer*** and ***magnetic*** sensor data will be used, so there w
 
 #### Related Classes
 All data related classes will be placed in [***pattern***](https://github.com/miworking/XFactor_PickupRecognition/tree/master/app/src/main/java/edu/cmu/ebiz/pickup/pattern) package
+
 [DoubleFeatureUnit]
 (https://github.com/miworking/XFactor_PickupRecognition/blob/master/app/src/main/java/edu/cmu/ebiz/pickup/pattern/DoubleFeatureUnit.java)is the basic class,
 
