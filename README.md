@@ -1,5 +1,6 @@
 # 1. Pickup Pattern Recognition Service:
 App Name: Pickup
+![Pickup](https://raw.githubusercontent.com/miworking/XFactor_PickupRecognition/master/app/src/main/res/mipmap-xhdpi/ic_launcher.png)
 
 ## How it works
 Once the app is opened, it will go to the background immediately, so there is no UI for this app.
