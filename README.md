@@ -1,5 +1,4 @@
-# 1. Pickup Pattern Recognition Service:
-App Name: Pickup
+# 1. Pickup
 ![Pickup](https://raw.githubusercontent.com/miworking/XFactor_PickupRecognition/master/app/src/main/res/mipmap-xhdpi/ic_launcher.png)
 
 ## How it works
