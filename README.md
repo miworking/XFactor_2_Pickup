@@ -61,7 +61,7 @@ Once data is collected, you can use [TrainModel](https://github.com/miworking/XF
 After you have collected enough data, you'd better copy this folder to your desktop and rename it so that it wont be erased in the future.
 /storage/emulated/legacy/Android/data/edu.cmu.ebiz.pickup/files/ 
 
-Here we collected data from 6 people, and put them like [this](https://github.com/miworking/XFactor_3_TrainModel/tree/master/data/pickupData)
+Here we [collected data from 6 people](https://www.youtube.com/watch?v=9hVYZ5cTyWo&feature=youtu.be), and put them like [this](https://github.com/miworking/XFactor_3_TrainModel/tree/master/data/pickupData)
 
 you can refer to the README of [TrainModel](https://github.com/miworking/XFactor_3_TrainModel) to go further on how to use these data to traing a model
 
