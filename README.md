@@ -16,11 +16,15 @@ Then it will work in the background as a service, monitoring the user's gesture 
 ## How it works
 When the screen is turned off, all sensor data will be collected by this service automatically, and these data will be written into a local csv file in external folder like this: /storage/emulated/legacy/Android/data/edu.cmu.ebiz.pickup/files/
 
-Only accelerometer and magnetic sensor data will be used, so there will be two files in this folder: 2015_08_21_23_47_55_acc.csv and 2015_08_21_23_47_55_magetic.csv (Why other sensor data are not used? [Page 2](https://www.dropbox.com/s/bnvwc62nh7kt24q/Pickup.pptx?dl=0) )
 
 Once the screen is turned on, it will read these data from local files, and abstract features from them, and decide whether it is the owner that picked up this phone. 
 
-#### Data Format and related classes
+#### Data format and related features
+Only accelerometer and magnetic sensor data will be used, so there will be two files in this folder: 2015_08_21_23_47_55_acc.csv and 2015_08_21_23_47_55_magetic.csv ([Why other sensor data are not used?] 
+(https://www.dropbox.com/s/bnvwc62nh7kt24q/Pickup.pptx?dl=0) [Page 2]
+
+104 features will be abstracted from these 2 data (https://www.dropbox.com/s/bnvwc62nh7kt24q/Pickup.pptx?dl=0) [Page 2-3]
+
 
 #### Machine learning algorithm 
 Decison is made basing on a random forest model which was trained before, this model file is located in [assets](https://github.com/miworking/XFactor_PickupRecognition/tree/master/app/src/main/assets) folder. And we are using Random Forest algorithm prived by [Weka](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0CB8QFjAAahUKEwjusbKs5bvHAhXKez4KHb80D3M&url=http%3A%2F%2Fwww.cs.waikato.ac.nz%2Fml%2Fweka%2F&ei=VvLXVe6uL8r3-QG_6byYBw&usg=AFQjCNEPpma7O48lI77yyDpwoLXe7vLqHQ&sig2=nmy5t8rpWRtkwt_DOQBD9g&cad=rjt), to use Weka in this app, a [weka.jar](https://github.com/miworking/XFactor_PickupRecognition/blob/master/app/libs/weka.jar) is imported, and this line needs to be added to dependencies in [build.gradle](https://github.com/miworking/XFactor_PickupRecognition/blob/master/app/build.gradle#L27)
