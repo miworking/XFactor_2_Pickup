@@ -1,7 +1,7 @@
-# 1. Pickup
+# 1. App Name: Pickup 
 ![Pickup](https://raw.githubusercontent.com/miworking/XFactor_PickupRecognition/master/app/src/main/res/mipmap-xhdpi/ic_launcher.png)
 
-## How it works
+## What does it do:
 Once the app is opened, it will go to the background immediately, so there is no UI for this app.
 Then it will work in the background as a service, monitoring the user's gesture to decide whether the phone is opened by the owner or not.
 
@@ -13,7 +13,7 @@ Then it will work in the background as a service, monitoring the user's gesture 
 ![Pickup](https://lh3.googleusercontent.com/FUaJlwOMH3q72a0aJRSn2tNsLKyhA8YvXzwsq14-ubm2TZAZO-NsmGeKkyzDb-ERfW-BFxJg8Evix-M=w1000-h398-rw)
 ![Kill](https://lh5.googleusercontent.com/USqPWuuFbBb-VnK4VJbg47UR4HUTKxirfc79NFk7-p0W-2bF7kmpggjR2JlyRB1bSOxTn78CIg9QDvQ=w1000-h398-rw)
 
-## What data is used:
+## How it works
 
 
 ## Code explanation:
