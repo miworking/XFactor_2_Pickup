@@ -19,6 +19,11 @@ When the screen is turned off, all sensor data will be collected by this service
 
 Once the screen is turned on, it will read these data from local files, and abstract features from them, and decide whether it is the owner that picked up this phone. 
 
+#### Machine learning algorithm 
+Decison is made basing on a random forest model which was trained before, this model file is located in [assets](https://github.com/miworking/XFactor_PickupRecognition/tree/master/app/src/main/assets) folder. And we are using **Random Forest** algorithm prived by [Weka](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0CB8QFjAAahUKEwjusbKs5bvHAhXKez4KHb80D3M&url=http%3A%2F%2Fwww.cs.waikato.ac.nz%2Fml%2Fweka%2F&ei=VvLXVe6uL8r3-QG_6byYBw&usg=AFQjCNEPpma7O48lI77yyDpwoLXe7vLqHQ&sig2=nmy5t8rpWRtkwt_DOQBD9g&cad=rjt), to use Weka in this app, a [weka.jar](https://github.com/miworking/XFactor_PickupRecognition/blob/master/app/libs/weka.jar) is imported, and this line needs to be added to dependencies in [build.gradle](https://github.com/miworking/XFactor_PickupRecognition/blob/master/app/build.gradle#L27)
+
+`compile files('libs/weka.jar')`
+
 #### Data format and related features
 Only ***accelerometer*** and ***magnetic*** sensor data will be used, so there will be two files in this folder: 2015_08_21_23_47_55_acc.csv and 2015_08_21_23_47_55_magetic.csv  ([Why don't use other sensor data?] 
 (https://www.dropbox.com/s/bnvwc62nh7kt24q/Pickup.pptx?dl=0) [Page 2])
@@ -27,13 +32,21 @@ Only ***accelerometer*** and ***magnetic*** sensor data will be used, so there w
 [{Accelerometer, Magnetic} * {X,Y,Z,Magnitude} * {Mean, Std, Min, Max, Percentile25,50,75, FTT[0,1,2]}]
 
 
+#### Related Classes
+All data related classes will be placed in [***pattern***](https://github.com/miworking/XFactor_PickupRecognition/tree/master/app/src/main/java/edu/cmu/ebiz/pickup/pattern) package
+[DoubleFeatureUnit]
+(https://github.com/miworking/XFactor_PickupRecognition/blob/master/app/src/main/java/edu/cmu/ebiz/pickup/pattern/DoubleFeatureUnit.java)is the basic class,
+
+[XYZFeature](https://github.com/miworking/XFactor_PickupRecognition/blob/master/app/src/main/java/edu/cmu/ebiz/pickup/pattern/XYZFeature.java)  has 4 DoubleFeatureUnit members: X,Y,Z,V (Magnitude of X,Y,Z)
+[Feature](https://github.com/miworking/XFactor_PickupRecognition/blob/master/app/src/main/java/edu/cmu/ebiz/pickup/pattern/Feature.java) class contains 2 XYZFeature members: accelerometer and magnetic
+
+[OnePersonData](https://github.com/miworking/XFactor_PickupRecognition/blob/master/app/src/main/java/edu/cmu/ebiz/pickup/pattern/OnePersonData.java) has a list of Feature as its member, and calculate features from this list.
 
 
 
-#### Machine learning algorithm 
-Decison is made basing on a random forest model which was trained before, this model file is located in [assets](https://github.com/miworking/XFactor_PickupRecognition/tree/master/app/src/main/assets) folder. And we are using **Random Forest** algorithm prived by [Weka](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0CB8QFjAAahUKEwjusbKs5bvHAhXKez4KHb80D3M&url=http%3A%2F%2Fwww.cs.waikato.ac.nz%2Fml%2Fweka%2F&ei=VvLXVe6uL8r3-QG_6byYBw&usg=AFQjCNEPpma7O48lI77yyDpwoLXe7vLqHQ&sig2=nmy5t8rpWRtkwt_DOQBD9g&cad=rjt), to use Weka in this app, a [weka.jar](https://github.com/miworking/XFactor_PickupRecognition/blob/master/app/libs/weka.jar) is imported, and this line needs to be added to dependencies in [build.gradle](https://github.com/miworking/XFactor_PickupRecognition/blob/master/app/build.gradle#L27)
 
-`compile files('libs/weka.jar')`
+
+
 
 
 
