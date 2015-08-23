@@ -11,7 +11,7 @@ However it will work in the background as a service, monitoring the user's gestu
  
  ![Settings](https://lh4.googleusercontent.com/DGbT7aMeklh3Kn6Aj3HtO56_wCn2o7ovyYU7ZGLsUVUcNKTYjPEjhULFSYfioYmJnUsOkKmpbpMUh7U=w1000-h398-rw)
 ![Pickup](https://photos-2.dropbox.com/t/2/AADQdww_vyNfh_KwMHS0epK4JqPQw4_-WP8Onv7SBPkrZQ/12/379006731/png/32x32/1/_/1/2/a.png/EN7vtYEDGMS1ByABIAIoASgH/ie3l_A7uGSd7C_Z0skxyrZSgtD1dE3YkqzRN2KXPNpU?size=800x600&size_mode=2)
-![Kill](https://lh5.googleusercontent.com/USqPWuuFbBb-VnK4VJbg47UR4HUTKxirfc79NFk7-p0W-2bF7kmpggjR2JlyRB1bSOxTn78CIg9QDvQ=w1000-h398-rw)
+![Kill](https://photos-5.dropbox.com/t/2/AAB28JMx1VA_cpxh7frOq2swsx2lrdr6nBQgKNOh0zLz5Q/12/379006731/png/32x32/1/_/1/2/b.png/EN7vtYEDGMS1ByABIAIoASgH/IF-37jm0eMWGf79_f-0Q-fdA-oF1Ylre_BRcbPOmAZo?size=800x600&size_mode=2)
 
 ## How it works
 When the screen is turned off, all sensor data will be collected by this service automatically, and these data will be written into a local csv file in external folder like this: /storage/emulated/legacy/Android/data/edu.cmu.ebiz.pickup/files/
